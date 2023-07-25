@@ -1,3 +1,4 @@
+import { GithubIcon } from 'lucide-react'
 import Link from 'next/link'
 export const Header = () => {
   return (
@@ -10,7 +11,11 @@ export const Header = () => {
             </div>
           </Link>
         </div>
-        <div className="flex items-center justify-end gap-4"></div>
+        <div className="flex items-center justify-end gap-4">
+          <a href="https://github.com/sinchang/ai-chat-widget">
+            <GithubIcon />
+          </a>
+        </div>
       </div>
     </header>
   )
