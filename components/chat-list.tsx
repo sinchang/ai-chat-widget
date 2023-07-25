@@ -1,5 +1,4 @@
 import { ChatMessage } from '@/components/chat-message'
-import { BeatLoader } from 'react-spinners'
 import { type Message } from 'ai/react'
 
 export interface ChatListProps {
