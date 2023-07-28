@@ -3,7 +3,7 @@ import { EraserIcon, Maximize2Icon, Minimize2Icon } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { useAtom } from 'jotai'
 
-export const ChatHeader = () => {
+export const ChatHeader = ({ onClear }: { onClear: () => void }) => {
   const [isMaximize, setMaximize] = useAtom(maximizeAtom)
 
   return (
@@ -11,14 +11,14 @@ export const ChatHeader = () => {
       <h3>AI Chat Widget</h3>
       <div className="flex gap-2">
         <TooltipProvider delayDuration={300}>
-          {/* <Tooltip>
+          <Tooltip>
             <TooltipTrigger>
-              <EraserIcon size={16} className="cursor-pointer" />
+              <EraserIcon size={16} className="cursor-pointer" onClick={onClear} />
             </TooltipTrigger>
             <TooltipContent>
               <p>Clean History</p>
             </TooltipContent>
-          </Tooltip> */}
+          </Tooltip>
           <div className="hidden md:block">
             <Tooltip>
               <TooltipTrigger>

@@ -13,7 +13,7 @@ import { useChat } from 'ai/react'
 export const Chat = () => {
   const [open, setOpen] = useState(false)
   const [isMaximize] = useAtom(maximizeAtom)
-  const { messages, isLoading, setInput, input, handleInputChange, handleSubmit, stop, reload } = useChat()
+  const { messages, isLoading, setInput, input, handleInputChange, handleSubmit, stop, reload, setMessages } = useChat()
   const handleOpen = async () => {
     setOpen(prev => !prev)
   }
@@ -26,7 +26,7 @@ export const Chat = () => {
       {open ? (
         <div className={cn('fixed bottom-24 right-8 z-50 h-[80vh] bg-white shadow-xl', isMaximize ? 'w-3/4' : 'w-96')}>
           <div className="relative flex h-full w-full flex-col justify-between">
-            <ChatHeader />
+            <ChatHeader onClear={() => setMessages([])} />
             <ScrollToBottom
               className="h-full overflow-auto"
               followButtonClassName="hide-scroll-to-buttom"
