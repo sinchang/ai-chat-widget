@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils'
 import { type Message } from 'ai/react'
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import type { CodeProps } from 'react-markdown/lib/ast-to-react'
 
 export interface ChatListProps {
   messages: Message[]
@@ -15,20 +16,13 @@ export const ChatList = ({ messages }: ChatListProps) => {
         return (
           <ChatMessage role={message.role} key={message.id}>
             <ReactMarkdown
-              // eslint-disable-next-line react/no-children-prop
-              children={message.content}
               components={{
-                code({ node, inline, className, children, ...props }) {
+                code({ node, inline, className, children, style, ...props }: CodeProps) {
                   const match = /language-(\w+)/.exec(className || '')
-                  const childStr = String(children).replace(/\n$/, '')
                   return !inline && match ? (
-                    <SyntaxHighlighter
-                      {...props}
-                      // eslint-disable-next-line react/no-children-prop
-                      children={childStr}
-                      language={match[1]}
-                      PreTag="div"
-                    />
+                    <SyntaxHighlighter language={match[1]} PreTag="div" {...props}>
+                      {String(children).replace(/\n$/, '')}
+                    </SyntaxHighlighter>
                   ) : (
                     <code {...props} className={cn('text-amber-600', className)}>
                       {children}
@@ -36,7 +30,9 @@ export const ChatList = ({ messages }: ChatListProps) => {
                   )
                 }
               }}
-            />
+            >
+              {message.content}
+            </ReactMarkdown>
           </ChatMessage>
         )
       })}
